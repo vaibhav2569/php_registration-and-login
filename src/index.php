@@ -67,8 +67,35 @@ if($_SERVER['REQUEST_METHOD']=="POST")
         $email_err="Email cannot be empty";
     }
     else{
-        $email= trim($_POST['email']);
+        $sql="SELECT id from user WHERE email = ?";
+        // prepare a statement
+        $stmt=mysqli_prepare($conn,$sql);
+        if($stmt)
+        {
+            mysqli_stmt_bind_param($stmt,"s",$param_email);
+            // setting the value of param username
+            $param_email = trim($_POST['email']);
+            // trying to execute this statement
+            if(mysqli_stmt_execute($stmt))
+            {
+                mysqli_stmt_store_result($stmt);
+                if(mysqli_stmt_num_rows($stmt)==1)
+                {
+                    $email_err="This email is already taken";
+                }
+                else{
+                    $email=trim($_POST['email']);
+                }
+            }
+            // if statement does not execute
+            else{
+                echo "Something went wrong";
+            }
+        }
+
     }
+    mysqli_stmt_close($stmt);
+  
     // if there are no errors
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err))
     {
@@ -103,20 +130,6 @@ if($_SERVER['REQUEST_METHOD']=="POST")
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!doctype html>
 <html lang="en">
 
@@ -151,7 +164,7 @@ if($_SERVER['REQUEST_METHOD']=="POST")
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">

@@ -25,7 +25,7 @@
     <!-- dont's for sign up form -->
     <div class="jumbotron">
   <h1 class="display-4">Dont's before  submitting registration form!</h1>
-  <p class="lead"><b>.1 Username </b> should not be repeated </p>
+  <p class="lead"><b>1. Entered Username and email </b> should not exist in database </p>
   <hr class="my-4">
   <p class="lead">
     <b>2. Password</b> should be of <b>8 or more characters</b>
@@ -39,7 +39,7 @@
 <!-- dont's for login form -->
 <div class="jumbotron">
   <h1 class="display-4">Dont's before  submitting login form!</h1>
-  <p class="lead"><b>.1 Please login your email only after Sign up </p>
+  <p class="lead"><b>1. Please login your email only after Sign up </p>
   <hr class="my-4">
   <p class="lead">
     <b>2. Please Enter correct password</b>
